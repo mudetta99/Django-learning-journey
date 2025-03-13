@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Update{% endblock %}
+
+{% block content %}
+
+<h1 class="m-4 text-center text-warning">Update Trainee</h1>
+
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h2 class="text-center text-warning mb-3">Update Trainee</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" name="first_name" value="{{ trainee.first_name }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="last_name" value="{{ trainee.last_name }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" value="{{ trainee.email }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" class="form-control" name="phone" value="{{ trainee.phone }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-control" name="age" value="{{ trainee.age }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Joined Date</label>
+                <input type="date" class="form-control" name="joined_date" value="{{ trainee.joined_date|date:'Y-m-d' }}" required>
+            </div>
+
+            <!-- Course Selection -->
+            <div class="mb-3">
+                <label class="form-label">Select Course</label>
+                <select class="form-control" name="course" required>
+                    <option value="" disabled>Select a Course</option>
+                    {% for course in courses %}
+                        <option value="{{ course.id }}" {% if trainee.course_id == course.id %}selected{% endif %}>
+                            {{ course.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Update</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
